@@ -66,7 +66,8 @@ function handleWeather(request, response) {
 }
 
 function handleEvent(request, response) {
-  const url = `https://www.eventbriteapi.com/v3/events/search?token=${process.env.EVENT_API_KEY}&location.address=${request.query.data}`;
+  const url = `https://www.eventbriteapi.com/v3/events/search?token=${process.env.EVENT_API_KEY}&location.address=${request.query.data.name}`;
+
   superagent.get(url)
     .then ( data => {
       const eventSummaries = data.body.events.map (eventInfo => {
