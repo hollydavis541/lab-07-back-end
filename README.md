@@ -1,7 +1,7 @@
 # Code301 Lab07 - APIs
 
 **Author**: Holly Davis and Natalie Alway
-**Version**: 1.0.0
+**Version**: 1.2.0
 <!-- (increment the patch/fix version number if you make more commits past your first submission) -->
 
 ## Overview
@@ -33,21 +33,21 @@ Finish time: 09:05 AM
 Actual time needed to complete: 5 minutes
 
 Number and name of feature: Feature #2 Locations
-Estimate of time needed to complete: 
-Start time: 
-Finish time: 
-Actual time needed to complete: 
+Estimate of time needed to complete: 15 minutes
+Start time: 09:15 AM
+Finish time: 09:45 AM
+Actual time needed to complete: 30 minutes (in order to troubleshoot heroku key issue)
 
 
 Number and name of feature: Feature #3 Weather
-Estimate of time needed to complete: 
-Start time: 
-Finish time: 
-Actual time needed to complete: 
+Estimate of time needed to complete: 10 minutes
+Start time: 09:50 AM
+Finish time: 09:55 AM
+Actual time needed to complete: 5 minutes
 
 
 Number and name of feature: Feature #4 Eventbrite
-Estimate of time needed to complete: 
-Start time: 
+Estimate of time needed to complete: 30 minutes
+Start time: 10:00 AM
 Finish time: 
-Actual time needed to complete: 
+Actual time needed to complete:   (having url issues)
