@@ -61,12 +61,12 @@ function handleWeather(request, response) {
       response.status(200).json(weatherSummaries);
     })
     .catch( ()=> {
-      errorHandler('So sorry, something went really wrong', request, response);
+      errorHandler('No weather for you!', request, response);
     });
 }
 
 function handleEvent(request, response) {
-  const url = `` ;
+  const url = `https://www.eventbriteapi.com/v3/events/search?token=${process.env.EVENT_API_KEY}&location.address=${request.query.data}`;
   superagent.get(url)
     .then ( data => {
       const eventSummaries = data.body.events.map (eventInfo => {
@@ -75,20 +75,11 @@ function handleEvent(request, response) {
       response.status(200).json(eventSummaries);
     })
     .catch ( () => {
-      errorHandler ('Sorry, something went wrong!', request, response);
+      errorHandler ('No events for you!', request, response);
     });
 }
 
 // Constructors
-function Weather(day) {
-  this.forecast = day.summary;
-  this.time = new Date(day.time * 1000).toString().slice(0,15);
-}
-
-app.use('*', notFoundHandler);
-app.use(errorHandler);
-
-// HELPER FUNCTIONS
 
 function Location(city, geoData) {
   this.search_query = city;
@@ -96,6 +87,26 @@ function Location(city, geoData) {
   this.latitude = geoData.results[0].geometry.location.lat;
   this.longitude = geoData.results[0].geometry.location.lng;
 }
+
+function Weather(day) {
+  this.forecast = day.summary;
+  this.time = new Date(day.time * 1000).toString().slice(0,15);
+}
+
+function Event(event) {
+  // Credit for next 3 lines: Felipe Delatorre
+  let time = Date.parse(location.start.local)
+  let newDate = new Date(time).toDateString();
+  this.event_date = newDate;
+  this.link = event.url;
+  this.name = event.name.text;
+  this.summary = event.summary;
+}
+
+app.use('*', notFoundHandler);
+app.use(errorHandler);
+
+// HELPER FUNCTIONS
 
 function notFoundHandler(request,response) {
   response.status(404).send('huh?');
