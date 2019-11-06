@@ -27,8 +27,8 @@ This is a Node.js server that uses express, dotenv, and cors packages. The serve
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
 Number and name of feature: Feature #1 Data formatting
-Estimate of time needed to complete: 
-Start time: 
+Estimate of time needed to complete: 15 minutes
+Start time: 09:00 AM
 Finish time: 
 Actual time needed to complete: 
 
