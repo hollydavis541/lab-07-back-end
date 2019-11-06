@@ -29,9 +29,9 @@ function aboutUsHandler(request,response) {
 }
 
 // API Routes
-
 app.get('/location', handleLocation);
 app.get('/weather', handleWeather);
+app.get('/events', handleEvent);
 
 //Route Handlers
 function handleLocation(request,response) {
@@ -48,22 +48,10 @@ function handleLocation(request,response) {
       console.error(error);
       response.status(500).send('Status: 500. Sorry, there is something not quite right');
     })
-
-
 }
 
 function handleWeather(request, response) {
-  // try{
-  //   const darkskyData = require('./data/darksky.json');
-  //   const weatherSummaries = [];
-  //   darkskyData.daily.data.forEach( day => {
-  //     weatherSummaries.push(new Weather(day));
-  //   });
-  //   response.status(200).json(weatherSummaries);
-  // }
-  // catch {
-  //   errorHandler('so sorry, that is wrong')
-  // }
+
   const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${request.query.data.latitude},${request.query.data.longitude}`;
   superagent.get(url)
     .then( data => {
@@ -75,14 +63,27 @@ function handleWeather(request, response) {
     .catch( ()=> {
       errorHandler('So sorry, something went really wrong', request, response);
     });
-
 }
 
+function handleEvent(request, response) {
+  const url = `` ;
+  superagent.get(url)
+    .then ( data => {
+      const eventSummaries = data.body.events.map (eventInfo => {
+        return new Event(eventInfo);
+      });
+      response.status(200).json(eventSummaries);
+    })
+    .catch ( () => {
+      errorHandler ('Sorry, something went wrong!', request, response);
+    });
+}
+
+// Constructors
 function Weather(day) {
   this.forecast = day.summary;
   this.time = new Date(day.time * 1000).toString().slice(0,15);
 }
-
 
 app.use('*', notFoundHandler);
 app.use(errorHandler);
@@ -96,17 +97,13 @@ function Location(city, geoData) {
   this.longitude = geoData.results[0].geometry.location.lng;
 }
 
-
-
-function  notFoundHandler(request,response) {
+function notFoundHandler(request,response) {
   response.status(404).send('huh?');
 }
 
 function errorHandler(error,request,response) {
   response.status(500).send(error);
 }
-
-
 
 // Make sure the server is listening for requests
 app.listen(PORT, () => console.log(`App is listening on ${PORT}`) );
